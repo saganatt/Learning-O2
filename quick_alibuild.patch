@@ -1,0 +1,865 @@
+diff --git a/Analysis/CMakeLists.txt b/Analysis/CMakeLists.txt
+index 922465bb4f..cd31028c70 100644
+--- a/Analysis/CMakeLists.txt
++++ b/Analysis/CMakeLists.txt
+@@ -10,7 +10,7 @@
+ 
+ add_subdirectory(Core)
+ add_subdirectory(DataModel)
+-add_subdirectory(Tasks)
++#add_subdirectory(Tasks)
+ add_subdirectory(Tutorials)
+-add_subdirectory(PWGDQ)
+-add_subdirectory(ALICE3)
++#add_subdirectory(PWGDQ)
++#add_subdirectory(ALICE3)
+diff --git a/Analysis/Core/CMakeLists.txt b/Analysis/Core/CMakeLists.txt
+index 36aab17068..98e4c4c8ff 100644
+--- a/Analysis/Core/CMakeLists.txt
++++ b/Analysis/Core/CMakeLists.txt
+@@ -29,12 +29,12 @@ o2_add_executable(merger
+               SOURCES src/AODMerger.cxx
+               PUBLIC_LINK_LIBRARIES ROOT::Hist ROOT::Core)
+ 
+-if(FastJet_FOUND)
+-o2_add_library(AnalysisJets
+-               SOURCES  src/JetFinder.cxx
+-               PUBLIC_LINK_LIBRARIES O2::AnalysisCore FastJet::FastJet FastJet::Contrib)
+-
+-o2_target_root_dictionary(AnalysisJets
+-              HEADERS include/AnalysisCore/JetFinder.h
+-              LINKDEF src/AnalysisJetsLinkDef.h)
+-endif()
++#if(FastJet_FOUND)
++#o2_add_library(AnalysisJets
++#               SOURCES  src/JetFinder.cxx
++#               PUBLIC_LINK_LIBRARIES O2::AnalysisCore FastJet::FastJet FastJet::Contrib)
++#
++#o2_target_root_dictionary(AnalysisJets
++#              HEADERS include/AnalysisCore/JetFinder.h
++#              LINKDEF src/AnalysisJetsLinkDef.h)
++#endif()
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 7d78316be0..5f9f225c7c 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -88,41 +88,41 @@ add_subdirectory(Utilities)
+ add_subdirectory(CCDB)
+ add_subdirectory(Algorithm)
+ add_subdirectory(Detectors)
+-add_subdirectory(EventVisualisation)
+-add_subdirectory(Generators)
+-add_subdirectory(Steer) # consider building this only for simulation ?
+-add_subdirectory(prodtests)
++# add_subdirectory(EventVisualisation)
++# add_subdirectory(Generators)
++# add_subdirectory(Steer) # consider building this only for simulation ?
++# add_subdirectory(prodtests)
+ if(BUILD_ANALYSIS)
+ add_subdirectory(Analysis)
+ endif()
+-add_subdirectory(scripts)
++# add_subdirectory(scripts)
+ 
+-if(BUILD_EXAMPLES)
+-  add_subdirectory(Examples)
+-endif()
++# if(BUILD_EXAMPLES)
++#   add_subdirectory(Examples)
++# endif()
+ 
+-if(BUILD_SIMULATION)
+-  add_subdirectory(run)
+-endif()
++# if(BUILD_SIMULATION)
++#   add_subdirectory(run)
++# endif()
+ 
+-add_subdirectory(config)
++# add_subdirectory(config)
+ 
+ add_custom_target(man ALL)
+ o2_target_man_page(man NAME o2)
+ o2_target_man_page(man NAME FairMQDevice)
+ 
+ # Testing and packaging only needed if we are the top level directory
+-if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+-  # Documentation
+-  add_subdirectory(doc)
+-  if(BUILD_TESTING)
+-    add_subdirectory(tests)
+-  endif()
+-  if(BUILD_TEST_ROOT_MACROS)
+-    add_subdirectory(macro)
+-    o2_report_non_tested_macros()
+-  endif()
+-  add_subdirectory(packaging)
+-endif()
++# if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
++#   # Documentation
++#   add_subdirectory(doc)
++#   if(BUILD_TESTING)
++#     add_subdirectory(tests)
++#   endif()
++#   if(BUILD_TEST_ROOT_MACROS)
++#     add_subdirectory(macro)
++#     o2_report_non_tested_macros()
++#   endif()
++#   add_subdirectory(packaging)
++# endif()
+ 
+ set_root_pcm_dependencies()
+diff --git a/Common/Utils/CMakeLists.txt b/Common/Utils/CMakeLists.txt
+index 106b76857a..5880b51799 100644
+--- a/Common/Utils/CMakeLists.txt
++++ b/Common/Utils/CMakeLists.txt
+@@ -32,38 +32,38 @@ o2_target_root_dictionary(CommonUtils
+                                   include/CommonUtils/ConfigurationMacroHelper.h
+ 				  include/CommonUtils/RootSerializableKeyValueStore.h)
+ 
+-o2_add_test(TreeStream
+-            COMPONENT_NAME CommonUtils
+-            LABELS utils
+-            SOURCES test/testTreeStream.cxx
+-            PUBLIC_LINK_LIBRARIES O2::CommonUtils O2::ReconstructionDataFormats)
+-
+-o2_add_test(BoostSerializer
+-            COMPONENT_NAME CommonUtils
+-            LABELS utils
+-            SOURCES test/testBoostSerializer.cxx
+-            PUBLIC_LINK_LIBRARIES O2::CommonUtils Boost::serialization)
+-
+-o2_add_test(CompStream
+-            COMPONENT_NAME CommonUtils
+-            LABELS utils
+-            SOURCES test/testCompStream.cxx
+-            PUBLIC_LINK_LIBRARIES O2::CommonUtils Boost::filesystem)
+-
+-o2_add_test(ValueMonitor
+-            COMPONENT_NAME CommonUtils
+-            LABELS utils
+-            SOURCES test/testValueMonitor.cxx
+-            PUBLIC_LINK_LIBRARIES O2::CommonUtils)
+-
+-o2_add_test(PropertyMapIO
+-            COMPONENT_NAME CommonUtils
+-            LABELS utils
+-            SOURCES test/testRootSerializableKeyValueStore.cxx
+-            PUBLIC_LINK_LIBRARIES O2::CommonUtils)
+-
+-o2_add_test(MemFileHelper
+-            COMPONENT_NAME CommonUtils
+-            LABELS utils
+-            SOURCES test/testMemFileHelper.cxx
+-            PUBLIC_LINK_LIBRARIES O2::CommonUtils)
++        # o2_add_test(TreeStream
++        #             COMPONENT_NAME CommonUtils
++        #             LABELS utils
++        #             SOURCES test/testTreeStream.cxx
++        #             PUBLIC_LINK_LIBRARIES O2::CommonUtils O2::ReconstructionDataFormats)
++        # 
++        # o2_add_test(BoostSerializer
++        #             COMPONENT_NAME CommonUtils
++        #             LABELS utils
++        #             SOURCES test/testBoostSerializer.cxx
++        #             PUBLIC_LINK_LIBRARIES O2::CommonUtils Boost::serialization)
++        # 
++        # o2_add_test(CompStream
++        #             COMPONENT_NAME CommonUtils
++        #             LABELS utils
++        #             SOURCES test/testCompStream.cxx
++        #             PUBLIC_LINK_LIBRARIES O2::CommonUtils Boost::filesystem)
++        # 
++        # o2_add_test(ValueMonitor
++        #             COMPONENT_NAME CommonUtils
++        #             LABELS utils
++        #             SOURCES test/testValueMonitor.cxx
++        #             PUBLIC_LINK_LIBRARIES O2::CommonUtils)
++        # 
++        # o2_add_test(PropertyMapIO
++        #             COMPONENT_NAME CommonUtils
++        #             LABELS utils
++        #             SOURCES test/testRootSerializableKeyValueStore.cxx
++        #             PUBLIC_LINK_LIBRARIES O2::CommonUtils)
++        # 
++        # o2_add_test(MemFileHelper
++        #             COMPONENT_NAME CommonUtils
++        #             LABELS utils
++        #             SOURCES test/testMemFileHelper.cxx
++        #             PUBLIC_LINK_LIBRARIES O2::CommonUtils)
+diff --git a/DataFormats/CMakeLists.txt b/DataFormats/CMakeLists.txt
+index 499528140b..36119c18f8 100644
+--- a/DataFormats/CMakeLists.txt
++++ b/DataFormats/CMakeLists.txt
+@@ -4,7 +4,7 @@ add_subdirectory(Detectors)
+ add_subdirectory(Reconstruction)
+ add_subdirectory(MemoryResources)
+ add_subdirectory(simulation)
+-add_subdirectory(TimeFrame)
++#add_subdirectory(TimeFrame)
+ add_subdirectory(Parameters)
+-add_subdirectory(Calibration)
+-add_subdirectory(QualityControl)
++#add_subdirectory(Calibration)
++#add_subdirectory(QualityControl)
+diff --git a/DataFormats/Detectors/CMakeLists.txt b/DataFormats/Detectors/CMakeLists.txt
+index 18b0ed4484..9a2bd7aa4a 100644
+--- a/DataFormats/Detectors/CMakeLists.txt
++++ b/DataFormats/Detectors/CMakeLists.txt
+@@ -12,18 +12,18 @@
+ 
+ add_subdirectory(Common)
+ add_subdirectory(TPC)
+-add_subdirectory(ITSMFT)
+-add_subdirectory(MUON)
+-add_subdirectory(TOF)
+-add_subdirectory(FIT)
+-add_subdirectory(EMCAL)
+-add_subdirectory(ZDC)
+-add_subdirectory(TRD)
+-add_subdirectory(PHOS)
+-add_subdirectory(CPV)
+-
+-if(ENABLE_UPGRADES)
+-  add_subdirectory(Upgrades)
+-else()
+-  message(STATUS "Not building dataformats for upgrades")
+-endif()
++# add_subdirectory(ITSMFT)
++# add_subdirectory(MUON)
++# add_subdirectory(TOF)
++# add_subdirectory(FIT)
++# add_subdirectory(EMCAL)
++# add_subdirectory(ZDC)
++# add_subdirectory(TRD)
++# add_subdirectory(PHOS)
++# add_subdirectory(CPV)
++# 
++# if(ENABLE_UPGRADES)
++#   add_subdirectory(Upgrades)
++# else()
++#   message(STATUS "Not building dataformats for upgrades")
++# endif()
+diff --git a/Detectors/Base/CMakeLists.txt b/Detectors/Base/CMakeLists.txt
+index 20d1db9eb0..00ea0a6b00 100644
+--- a/Detectors/Base/CMakeLists.txt
++++ b/Detectors/Base/CMakeLists.txt
+@@ -44,17 +44,17 @@ o2_target_root_dictionary(DetectorsBase
+                                   include/DetectorsBase/MatLayerCylSet.h
+                                   include/DetectorsBase/CTFCoderBase.h)
+ 
+-if(BUILD_SIMULATION)
+-  o2_add_test(
+-    MatBudLUT
+-    SOURCES test/testMatBudLUT.cxx
+-    COMPONENT_NAME DetectorsBase
+-    PUBLIC_LINK_LIBRARIES O2::DetectorsBase O2::ITSMFTReconstruction
+-    LABELS detectorsbase
+-    ENVIRONMENT O2_ROOT=${CMAKE_BINARY_DIR}/stage
+-                VMCWORKDIR=${CMAKE_BINARY_DIR}/stage/${CMAKE_INSTALL_DATADIR})
+-endif()
+-
+-o2_add_test_root_macro(test/buildMatBudLUT.C
+-                       PUBLIC_LINK_LIBRARIES O2::DetectorsBase
+-                       LABELS detectorsbase)
++#if(BUILD_SIMULATION)
++#  o2_add_test(
++#    MatBudLUT
++#    SOURCES test/testMatBudLUT.cxx
++#    COMPONENT_NAME DetectorsBase
++#    PUBLIC_LINK_LIBRARIES O2::DetectorsBase O2::ITSMFTReconstruction
++#    LABELS detectorsbase
++#    ENVIRONMENT O2_ROOT=${CMAKE_BINARY_DIR}/stage
++#                VMCWORKDIR=${CMAKE_BINARY_DIR}/stage/${CMAKE_INSTALL_DATADIR})
++#endif()
++#
++#o2_add_test_root_macro(test/buildMatBudLUT.C
++#                       PUBLIC_LINK_LIBRARIES O2::DetectorsBase
++#                       LABELS detectorsbase)
+diff --git a/Detectors/CMakeLists.txt b/Detectors/CMakeLists.txt
+index 1a5c7813ce..c885d61d8e 100644
+--- a/Detectors/CMakeLists.txt
++++ b/Detectors/CMakeLists.txt
+@@ -10,44 +10,44 @@
+ 
+ add_subdirectory(Base)
+ add_subdirectory(Raw)
+-add_subdirectory(CTF)
++#add_subdirectory(CTF)
+ 
+ add_subdirectory(Passive) # must be first as some detector's macros use it
+ 
+-add_subdirectory(PHOS)
+-add_subdirectory(CPV)
+-add_subdirectory(EMCAL)
+-add_subdirectory(FIT)
+-add_subdirectory(HMPID)
+-add_subdirectory(TOF)
+-add_subdirectory(ZDC)
++#add_subdirectory(PHOS)
++#add_subdirectory(CPV)
++#add_subdirectory(EMCAL)
++#add_subdirectory(FIT)
++#add_subdirectory(HMPID)
++#add_subdirectory(TOF)
++#add_subdirectory(ZDC)
+ 
+-add_subdirectory(ITSMFT)
+-add_subdirectory(TRD)
++#add_subdirectory(ITSMFT)
++#add_subdirectory(TRD)
+ 
+-add_subdirectory(MUON)
++#add_subdirectory(MUON)
+ 
+ add_subdirectory(TPC)
+ 
+-add_subdirectory(GlobalTracking)
+-add_subdirectory(GlobalTrackingWorkflow)
+-add_subdirectory(Vertexing)
+-if(BUILD_ANALYSIS)
+-add_subdirectory(AOD)
+-endif()
++#add_subdirectory(GlobalTracking)
++#add_subdirectory(GlobalTrackingWorkflow)
++#add_subdirectory(Vertexing)
++#if(BUILD_ANALYSIS)
++#add_subdirectory(AOD)
++#endif()
+ 
+-add_subdirectory(Calibration)
+-add_subdirectory(DCS)
++#add_subdirectory(Calibration)
++#add_subdirectory(DCS)
+ 
+-if(BUILD_SIMULATION)
+-  add_subdirectory(gconfig)
+-  o2_data_file(COPY gconfig DESTINATION Detectors)
+-endif()
++#if(BUILD_SIMULATION)
++#  add_subdirectory(gconfig)
++#  o2_data_file(COPY gconfig DESTINATION Detectors)
++#endif()
+ 
+-o2_data_file(COPY Geometry DESTINATION Detectors)
++#o2_data_file(COPY Geometry DESTINATION Detectors)
+ 
+-if(ENABLE_UPGRADES)
+-  add_subdirectory(Upgrades)
+-else()
+-  message(STATUS "Not building detectors for upgrades")
+-endif()
++#if(ENABLE_UPGRADES)
++#  add_subdirectory(Upgrades)
++#else()
++#  message(STATUS "Not building detectors for upgrades")
++#endif()
+diff --git a/Detectors/ITSMFT/ITS/CMakeLists.txt b/Detectors/ITSMFT/ITS/CMakeLists.txt
+index f6895bf671..8f29ebe41b 100644
+--- a/Detectors/ITSMFT/ITS/CMakeLists.txt
++++ b/Detectors/ITSMFT/ITS/CMakeLists.txt
+@@ -14,5 +14,5 @@ add_subdirectory(simulation)
+ add_subdirectory(reconstruction)
+ add_subdirectory(tracking)
+ add_subdirectory(workflow)
+-add_subdirectory(macros)
+-add_subdirectory(QC)
++#add_subdirectory(macros)
++#add_subdirectory(QC)
+diff --git a/Detectors/Raw/CMakeLists.txt b/Detectors/Raw/CMakeLists.txt
+index 6a874b7da6..1bcd30a24d 100644
+--- a/Detectors/Raw/CMakeLists.txt
++++ b/Detectors/Raw/CMakeLists.txt
+@@ -47,22 +47,22 @@ o2_add_executable(file-reader-workflow
+                   PUBLIC_LINK_LIBRARIES O2::DetectorsRaw)
+ 
+ 
+-o2_add_test(HBFUtils
+-            PUBLIC_LINK_LIBRARIES O2::DetectorsRaw
+-                                  O2::Steer
+-            SOURCES test/testHBFUtils.cxx
+-            COMPONENT_NAME raw
+-            LABELS raw)
+-
+-o2_add_test(RawReaderWriter
+-            PUBLIC_LINK_LIBRARIES O2::DetectorsRaw
+-                                  O2::Steer
+-                            O2::DPLUtils
+-            SOURCES test/testRawReaderWriter.cxx
+-            COMPONENT_NAME raw
+-            LABELS raw)
+-
+-o2_add_test_root_macro(macro/rawStat.C
+-                       PUBLIC_LINK_LIBRARIES O2::DetectorsRaw
+-                                             O2::CommonUtils
+-                       LABELS raw)
++#o2_add_test(HBFUtils
++#            PUBLIC_LINK_LIBRARIES O2::DetectorsRaw
++#                                  O2::Steer
++#            SOURCES test/testHBFUtils.cxx
++#            COMPONENT_NAME raw
++#            LABELS raw)
++#
++#o2_add_test(RawReaderWriter
++#            PUBLIC_LINK_LIBRARIES O2::DetectorsRaw
++#                                  O2::Steer
++#                            O2::DPLUtils
++#            SOURCES test/testRawReaderWriter.cxx
++#            COMPONENT_NAME raw
++#            LABELS raw)
++#
++#o2_add_test_root_macro(macro/rawStat.C
++#                       PUBLIC_LINK_LIBRARIES O2::DetectorsRaw
++#                                             O2::CommonUtils
++#                       LABELS raw)
+diff --git a/Detectors/TPC/CMakeLists.txt b/Detectors/TPC/CMakeLists.txt
+index a07460ecae..2b2b7a1672 100644
+--- a/Detectors/TPC/CMakeLists.txt
++++ b/Detectors/TPC/CMakeLists.txt
+@@ -9,10 +9,10 @@
+ # submit itself to any jurisdiction.
+ 
+ add_subdirectory(base)
+-add_subdirectory(reconstruction)
+-add_subdirectory(calibration)
++#add_subdirectory(reconstruction)
++#add_subdirectory(calibration)
+ add_subdirectory(simulation)
+-add_subdirectory(monitor)
+-add_subdirectory(workflow)
+-add_subdirectory(qc)
++# add_subdirectory(monitor)
++# add_subdirectory(workflow)
++# add_subdirectory(qc)
+ add_subdirectory(spacecharge)
+diff --git a/Detectors/TPC/simulation/CMakeLists.txt b/Detectors/TPC/simulation/CMakeLists.txt
+index 92764ade94..2d1cab650d 100644
+--- a/Detectors/TPC/simulation/CMakeLists.txt
++++ b/Detectors/TPC/simulation/CMakeLists.txt
+@@ -39,24 +39,24 @@ o2_target_root_dictionary(TPCSimulation
+                                   include/TPCSimulation/Point.h
+                                   include/TPCSimulation/SAMPAProcessing.h)
+ 
+-o2_add_executable(digits-to-rawzs
+-                  COMPONENT_NAME tpc
+-                  PUBLIC_LINK_LIBRARIES O2::TPCBase O2::SimulationDataFormat O2::GPUO2Interface O2::GPUTracking O2::DetectorsRaw
+-                  SOURCES run/convertDigitsToRawZS.cxx)
+-
+-o2_data_file(COPY files DESTINATION Detectors/TPC)
+-o2_data_file(COPY data  DESTINATION Detectors/TPC/simulation)
+-
+-if(BUILD_TESTING)
+-  add_subdirectory(test)
+-
+-  o2_add_test_root_macro(macro/readMCtruth.C
+-                         PUBLIC_LINK_LIBRARIES O2::TPCBase
+-                                               O2::SimulationDataFormat
+-                         LABELS tpc)
+-
+-  o2_add_test_root_macro(macro/laserTrackGenerator.C
+-                         PUBLIC_LINK_LIBRARIES FairRoot::Base
+-                                               O2::DataFormatsTPC
+-                         LABELS tpc)
+-endif()
++#o2_add_executable(digits-to-rawzs
++#                  COMPONENT_NAME tpc
++#                  PUBLIC_LINK_LIBRARIES O2::TPCBase O2::SimulationDataFormat O2::GPUO2Interface O2::GPUTracking O2::DetectorsRaw
++#                  SOURCES run/convertDigitsToRawZS.cxx)
++#
++#o2_data_file(COPY files DESTINATION Detectors/TPC)
++#o2_data_file(COPY data  DESTINATION Detectors/TPC/simulation)
++#
++#if(BUILD_TESTING)
++#  add_subdirectory(test)
++#
++#  o2_add_test_root_macro(macro/readMCtruth.C
++#                         PUBLIC_LINK_LIBRARIES O2::TPCBase
++#                                               O2::SimulationDataFormat
++#                         LABELS tpc)
++#
++#  o2_add_test_root_macro(macro/laserTrackGenerator.C
++#                         PUBLIC_LINK_LIBRARIES FairRoot::Base
++#                                               O2::DataFormatsTPC
++#                         LABELS tpc)
++#endif()
+diff --git a/Framework/CMakeLists.txt b/Framework/CMakeLists.txt
+index ca1aa9cf05..49b654352b 100644
+--- a/Framework/CMakeLists.txt
++++ b/Framework/CMakeLists.txt
+@@ -19,8 +19,8 @@ add_subdirectory(Utils)
+ add_subdirectory(AnalysisSupport) 
+ 
+ # Build the GUI support only if we have DebugGUI
+-if (TARGET AliceO2::DebugGUI)
+-add_subdirectory(GUISupport) 
+-endif()
++# if (TARGET AliceO2::DebugGUI)
++# add_subdirectory(GUISupport) 
++# endif()
+ 
+-add_subdirectory(TestWorkflows) 
++# add_subdirectory(TestWorkflows) 
+diff --git a/Framework/Core/CMakeLists.txt b/Framework/Core/CMakeLists.txt
+index ff9a95b521..636348f283 100644
+--- a/Framework/Core/CMakeLists.txt
++++ b/Framework/Core/CMakeLists.txt
+@@ -138,182 +138,182 @@ o2_target_root_dictionary(Framework
+                           include/Framework/StepTHn.h
+                           LINKDEF test/FrameworkCoreTestLinkDef.h)
+ 
+-foreach(t
+-        AlgorithmSpec
+-        AnalysisTask
+-        AnalysisDataModel
+-        ASoA
+-        ASoAHelpers
+-        BoostOptionsRetriever
+-        ConfigurationOptionsRetriever
+-        CallbackRegistry
+-        ChannelSpecHelpers
+-        CompletionPolicy
+-        ComputingResourceHelpers
+-        ConfigParamStore
+-        ConfigParamRegistry
+-        DataDescriptorMatcher
+-        DataProcessorSpec
+-        DataRefUtils
+-        DataRelayer
+-        DeviceConfigInfo
+-        DeviceMetricsInfo
+-        DeviceSpec
+-        DeviceSpecHelpers
+-        Expressions
+-        ExternalFairMQDeviceProxy
+-        FairMQOptionsRetriever
+-        FairMQResizableBuffer
+-        FrameworkDataFlowToDDS
+-        Graphviz
+-        GroupSlicer
+-        HistogramRegistry
+-        HTTPParser
+-        IndexBuilder
+-        InfoLogger
+-        InputRecord
+-        InputRecordWalker
+-        InputSpan
+-        InputSpec
+-        Kernels
+-        LogParsingHelpers
+-        PtrHelpers
+-        Root2ArrowTable
+-        RootConfigParamHelpers
+-        Services
+-        StringHelpers
+-        SuppressionGenerator
+-        TMessageSerializer
+-        TableBuilder
+-        TimeParallelPipelining
+-        TimesliceIndex
+-        TypeTraits
+-        Variants
+-        WorkflowHelpers
+-        WorkflowSerialization
+-        TreeToTable
+-        DataOutputDirector
+-	DataInputDirector)
++# foreach(t
++#         AlgorithmSpec
++#         AnalysisTask
++#         AnalysisDataModel
++#         ASoA
++#         ASoAHelpers
++#         BoostOptionsRetriever
++#         ConfigurationOptionsRetriever
++#         CallbackRegistry
++#         ChannelSpecHelpers
++#         CompletionPolicy
++#         ComputingResourceHelpers
++#         ConfigParamStore
++#         ConfigParamRegistry
++#         DataDescriptorMatcher
++#         DataProcessorSpec
++#         DataRefUtils
++#         DataRelayer
++#         DeviceConfigInfo
++#         DeviceMetricsInfo
++#         DeviceSpec
++#         DeviceSpecHelpers
++#         Expressions
++#         ExternalFairMQDeviceProxy
++#         FairMQOptionsRetriever
++#         FairMQResizableBuffer
++#         FrameworkDataFlowToDDS
++#         Graphviz
++#         GroupSlicer
++#         HistogramRegistry
++#         HTTPParser
++#         IndexBuilder
++#         InfoLogger
++#         InputRecord
++#         InputRecordWalker
++#         InputSpan
++#         InputSpec
++#         Kernels
++#         LogParsingHelpers
++#         PtrHelpers
++#         Root2ArrowTable
++#         RootConfigParamHelpers
++#         Services
++#         StringHelpers
++#         SuppressionGenerator
++#         TMessageSerializer
++#         TableBuilder
++#         TimeParallelPipelining
++#         TimesliceIndex
++#         TypeTraits
++#         Variants
++#         WorkflowHelpers
++#         WorkflowSerialization
++#         TreeToTable
++#         DataOutputDirector
++# 	DataInputDirector)
++# 
++#   # FIXME ? The NAME parameter of o2_add_test is only needed to help the current
++#   # o2.sh recipe. If the recipe is changed, those params can go away, if needed.
++# 
++#   o2_add_test(${t} NAME test_Framework_test_${t}
++#               SOURCES test/test_${t}.cxx
++#               COMPONENT_NAME Framework
++#               LABELS framework
++#               PUBLIC_LINK_LIBRARIES O2::Framework)
++# endforeach()
+ 
+-  # FIXME ? The NAME parameter of o2_add_test is only needed to help the current
+-  # o2.sh recipe. If the recipe is changed, those params can go away, if needed.
+-
+-  o2_add_test(${t} NAME test_Framework_test_${t}
+-              SOURCES test/test_${t}.cxx
+-              COMPONENT_NAME Framework
+-              LABELS framework
+-              PUBLIC_LINK_LIBRARIES O2::Framework)
+-endforeach()
+-
+-o2_add_executable(dpl-null-sink
+-                  SOURCES src/o2NullSink.cxx
+-                  PUBLIC_LINK_LIBRARIES O2::Framework
+-                 )
+-
+-o2_add_executable(dpl-run
+-                  SOURCES src/dplRun.cxx
+-                  PUBLIC_LINK_LIBRARIES O2::Framework
+-                  )
+-
+-o2_add_executable(verify-aod-file
+-                  SOURCES src/verifyAODFile.cxx
+-                  PUBLIC_LINK_LIBRARIES O2::Framework
+-                  COMPONENT_NAME Framework)
+-
+-# tests with a name not starting with test_...
+-
+-o2_add_test(unittest_DataSpecUtils NAME test_Framework_unittest_DataSpecUtils
+-            SOURCES test/unittest_DataSpecUtils.cxx
+-            COMPONENT_NAME Framework
+-            LABELS framework
+-            PUBLIC_LINK_LIBRARIES O2::Framework)
+-
+-o2_add_test(unittest_SimpleOptionsRetriever NAME
+-            test_Framework_unittest_SimpleOptionsRetriever
+-            SOURCES test/unittest_SimpleOptionsRetriever.cxx
+-            COMPONENT_NAME Framework
+-            LABELS framework
+-            PUBLIC_LINK_LIBRARIES O2::Framework)
++#o2_add_executable(dpl-null-sink
++#                  SOURCES src/o2NullSink.cxx
++#                  PUBLIC_LINK_LIBRARIES O2::Framework
++#                 )
++#
++#o2_add_executable(dpl-run
++#                  SOURCES src/dplRun.cxx
++#                  PUBLIC_LINK_LIBRARIES O2::Framework
++#                  )
++#
++#o2_add_executable(verify-aod-file
++#                  SOURCES src/verifyAODFile.cxx
++#                  PUBLIC_LINK_LIBRARIES O2::Framework
++#                  COMPONENT_NAME Framework)
++#
++## tests with a name not starting with test_...
++#
++#o2_add_test(unittest_DataSpecUtils NAME test_Framework_unittest_DataSpecUtils
++#            SOURCES test/unittest_DataSpecUtils.cxx
++#            COMPONENT_NAME Framework
++#            LABELS framework
++#            PUBLIC_LINK_LIBRARIES O2::Framework)
++#
++#o2_add_test(unittest_SimpleOptionsRetriever NAME
++#            test_Framework_unittest_SimpleOptionsRetriever
++#            SOURCES test/unittest_SimpleOptionsRetriever.cxx
++#            COMPONENT_NAME Framework
++#            LABELS framework
++#            PUBLIC_LINK_LIBRARIES O2::Framework)
+ 
+ # benchmarks
+ 
+-foreach(b
+-        DataDescriptorMatcher
+-        DataRelayer
+-        DeviceMetricsInfo
+-        InputRecord
+-        TableBuilder
+-        WorkflowHelpers
+-        ASoA
+-        ASoAHelpers
+-        HistogramRegistry
+-        TableToTree
+-        TreeToTable
+-        )
+-  o2_add_executable(benchmark-${b}
+-                    SOURCES test/benchmark_${b}.cxx
+-                    COMPONENT_NAME Framework
+-	            IS_BENCHMARK
+-                    PUBLIC_LINK_LIBRARIES O2::Framework benchmark::benchmark)
+-endforeach()
++#foreach(b
++#        DataDescriptorMatcher
++#        DataRelayer
++#        DeviceMetricsInfo
++#        InputRecord
++#        TableBuilder
++#        WorkflowHelpers
++#        ASoA
++#        ASoAHelpers
++#        HistogramRegistry
++#        TableToTree
++#        TreeToTable
++#        )
++#  o2_add_executable(benchmark-${b}
++#                    SOURCES test/benchmark_${b}.cxx
++#                    COMPONENT_NAME Framework
++#	            IS_BENCHMARK
++#                    PUBLIC_LINK_LIBRARIES O2::Framework benchmark::benchmark)
++#endforeach()
+ 
+ # #####################################################@
+ 
+-foreach(w
+-        BoostSerializedProcessing
+-        CallbackService
+-        RegionInfoCallbackService
+-        DanglingInputs
+-        DanglingOutputs
+-        DataAllocator
+-        StaggeringWorkflow
+-        Forwarding
+-        ParallelPipeline
+-        ParallelProducer
+-        SlowConsumer 
+-        SimpleDataProcessingDevice01
+-        SimpleRDataFrameProcessing
+-        SimpleStatefulProcessing01
+-        SimpleStringProcessing
+-        SimpleTimer
+-        SimpleWildcard
+-        SimpleWildcard02
+-        SingleDataSource
+-        Task
+-        ExternalFairMQDeviceWorkflow
+-        )
+-  o2_add_test(${w} NAME test_Framework_test_${w}
+-              SOURCES test/test_${w}.cxx
+-              COMPONENT_NAME Framework
+-              MAX_ATTEMPTS 1
+-              LABELS framework workflow
+-              PUBLIC_LINK_LIBRARIES O2::Framework
+-              TIMEOUT 30
+-              NO_BOOST_TEST
+-              COMMAND_LINE_ARGS ${DPL_WORKFLOW_TESTS_EXTRA_OPTIONS} --run --shm-segment-size 20000000)
+-endforeach()
++#foreach(w
++#        BoostSerializedProcessing
++#        CallbackService
++#        RegionInfoCallbackService
++#        DanglingInputs
++#        DanglingOutputs
++#        DataAllocator
++#        StaggeringWorkflow
++#        Forwarding
++#        ParallelPipeline
++#        ParallelProducer
++#        SlowConsumer 
++#        SimpleDataProcessingDevice01
++#        SimpleRDataFrameProcessing
++#        SimpleStatefulProcessing01
++#        SimpleStringProcessing
++#        SimpleTimer
++#        SimpleWildcard
++#        SimpleWildcard02
++#        SingleDataSource
++#        Task
++#        ExternalFairMQDeviceWorkflow
++#        )
++#  o2_add_test(${w} NAME test_Framework_test_${w}
++#              SOURCES test/test_${w}.cxx
++#              COMPONENT_NAME Framework
++#              MAX_ATTEMPTS 1
++#              LABELS framework workflow
++#              PUBLIC_LINK_LIBRARIES O2::Framework
++#              TIMEOUT 30
++#              NO_BOOST_TEST
++#              COMMAND_LINE_ARGS ${DPL_WORKFLOW_TESTS_EXTRA_OPTIONS} --run --shm-segment-size 20000000)
++#endforeach()
+ 
+ # TODO: DanglingInput test not working for the moment [ERROR] Unable to relay
+ # part. [WARN] Incoming data is already obsolete, not relaying.
+-set_property(TEST test_Framework_test_DanglingInputs PROPERTY DISABLED TRUE)
++#set_property(TEST test_Framework_test_DanglingInputs PROPERTY DISABLED TRUE)
+ 
+ # TODO: investigate the problem and re-enable
+-set_property(TEST test_Framework_test_BoostSerializedProcessing
+-             PROPERTY DISABLED TRUE)
++#set_property(TEST test_Framework_test_BoostSerializedProcessing
++#             PROPERTY DISABLED TRUE)
+ 
+ # specific tests which needs command line options
+-o2_add_test(
+-  ProcessorOptions NAME test_Framework_test_ProcessorOptions
+-  SOURCES test/test_ProcessorOptions.cxx
+-  COMPONENT_NAME Framework
+-  MAX_ATTEMPTS 1
+-  LABELS framework workflow
+-  TIMEOUT 60
+-  PUBLIC_LINK_LIBRARIES O2::Framework
+-  NO_BOOST_TEST
+-  COMMAND_LINE_ARGS
+-    --global-config require-me --run ${DPL_WORKFLOW_TESTS_EXTRA_OPTIONS}
+-    # Note: the group switch makes process consumer parse only the group
+-    arguments --consumer
+-    "--global-config consumer-config --local-option hello-aliceo2 --a-boolean3 --an-int2 20 --a-double2 22. --an-int64-2 50000000000000"
+-  )
++#o2_add_test(
++#  ProcessorOptions NAME test_Framework_test_ProcessorOptions
++#  SOURCES test/test_ProcessorOptions.cxx
++#  COMPONENT_NAME Framework
++#  MAX_ATTEMPTS 1
++#  LABELS framework workflow
++#  TIMEOUT 60
++#  PUBLIC_LINK_LIBRARIES O2::Framework
++#  NO_BOOST_TEST
++#  COMMAND_LINE_ARGS
++#    --global-config require-me --run ${DPL_WORKFLOW_TESTS_EXTRA_OPTIONS}
++#    # Note: the group switch makes process consumer parse only the group
++#    arguments --consumer
++#    "--global-config consumer-config --local-option hello-aliceo2 --a-boolean3 --an-int2 20 --a-double2 22. --an-int64-2 50000000000000"
++#  )
+diff --git a/GPU/CMakeLists.txt b/GPU/CMakeLists.txt
+index 03b9b7d004..c299f69f58 100644
+--- a/GPU/CMakeLists.txt
++++ b/GPU/CMakeLists.txt
+@@ -19,5 +19,5 @@
+ 
+ add_subdirectory(Common)
+ add_subdirectory(Utils)
+-add_subdirectory(TPCFastTransformation)
+-add_subdirectory(GPUTracking)
++#add_subdirectory(TPCFastTransformation)
++#add_subdirectory(GPUTracking)
