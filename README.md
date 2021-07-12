@@ -9,8 +9,8 @@ I see the following pairs:
 
 |system| train number | run name | MC train number | MC run name |
 |-----:|-------------:|---------:|----------------:|------------:|
-|Pb-Pb |148           |LHC15o    |151              |LHC20f6      |
-| pp   |149           |LHC18_pp_bdefghiklmnop|152  |LHC18g4      | 
+|Pb-Pb |180           |LHC15o    |184              |LHC20f6      |
+| pp   |183           |LHC18_pp_bdefghiklmnop|186  |LHC18g4      | 
 
 To get AOD files:
 1. Scroll down on the [O2 conversion trains](https://alimonitor.cern.ch/trains/train.jsp?train_id=132) page
