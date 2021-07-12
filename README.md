@@ -1,5 +1,11 @@
 # Learning O2
 
+## Installation
+
+Build with alibuild as explained [here](https://alice-doc.github.io/alice-analysis-tutorial/building/).
+
+You will need also the GRID access to data.
+
 ## Data files
 
 [MC correspondence on AliMonitor](https://alimonitor.cern.ch/job_details.jsp)  
@@ -23,7 +29,7 @@ To get AOD files:
 ```
 cd alice/sw/BUILD/O2-latest/O2
 cmake . # Optional step, needed only after you add a new file and/or modify any CMakeLists.txt
-ninja stage/bin/o2-analysistutorial-simple-analysis
+ninja install stage/bin/o2-analysistutorial-simple-analysis
 ```
 
 NOTE: Sometimes, if you e.g. add some `std::cout` lines, they might not be correctly linked with such quick build. In this case you need to run full aliBuild :-(
