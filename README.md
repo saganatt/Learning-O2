@@ -6,35 +6,15 @@ Build with alibuild as explained [here](https://alice-doc.github.io/alice-analys
 
 You will need also the GRID access to data.
 
-## Data files
-
-[MC correspondence on AliMonitor](https://alimonitor.cern.ch/job_details.jsp)  
-[O2 conversion trains](https://alimonitor.cern.ch/trains/train.jsp?train_id=132)
-
-I see the following pairs:
-
-|system| train number | run name | MC train number | MC run name |
-|-----:|-------------:|---------:|----------------:|------------:|
-|Pb-Pb |180           |LHC15o    |184              |LHC20f6      |
-| pp   |183           |LHC18_pp_bdefghiklmnop|186  |LHC18g4      | 
-
-To get AOD files:
-1. Scroll down on the [O2 conversion trains](https://alimonitor.cern.ch/trains/train.jsp?train_id=132) page
-2. Click on the train number --> Test Results
-3. Scroll down to 'full train', click on output
-4. Download `AO2D.root`
-
 ## Quick O2 build (once O2 was installed with aliBuild)
 
 ```
 cd alice/sw/BUILD/O2-latest/O2
 cmake . # Optional step, needed only after you add a new file and/or modify any CMakeLists.txt
-ninja install stage/bin/o2-analysistutorial-simple-analysis
+ninja install stage/bin/o2-analysistutorial-simple-analysis # You can also call `ninja` without install but then you need to copy built files manually
 ```
 
 NOTE: Sometimes, if you e.g. add some `std::cout` lines, they might not be correctly linked with such quick build. In this case you need to run full aliBuild :-(
-
-However, if you don't care about having just a partial build of O2, you can copy and run `git apply quick_alibuild.patch` in the `alice/O2/` directory. This will comment out many build targets not essential for an analysis task to speed up the build, and only 1/5 of the O2 gets compiled.
 
 ## Prepare O2 Git repository
 
@@ -66,6 +46,24 @@ git push -u origin # This creates a learning-o2 branch on your own repository
 # Your local branch will be then independent from my repo 
 ```
 
+## Data files
+
+[MC correspondence on AliMonitor](https://alimonitor.cern.ch/job_details.jsp)  
+[O2 conversion trains](https://alimonitor.cern.ch/trains/train.jsp?train_id=132)
+
+I see the following pairs:
+
+|system| train number | run name | MC train number | MC run name |
+|-----:|-------------:|---------:|----------------:|------------:|
+|Pb-Pb |180           |LHC15o    |184              |LHC20f6      |
+| pp   |183           |LHC18_pp_bdefghiklmnop|186  |LHC18g4      | 
+
+To get AOD files:
+1. Scroll down on the [O2 conversion trains](https://alimonitor.cern.ch/trains/train.jsp?train_id=132) page
+2. Click on the train number --> Test Results
+3. Scroll down to 'full train', click on output
+4. Download `AO2D.root`
+
 ## Local analysis
 
 ```
@@ -73,7 +71,7 @@ alienv enter O2/latest
 o2-analysistutorial-simple-analysis --aod-file <aod_file_name> -b
 ```
 
-NOTE: In case you've updated the binaries with `ninja`, you need to copy the new binary to your current dir and call `./o2-analysis*`:
+NOTE: In case you've updated the binaries with `ninja` (but not `ninja install`), you need to copy the new binary to your current dir and call `./o2-analysis*`:
 ```
 cp alice/sw/BUILD/O2-latest/O2/stage/bin/o2-analysistutorial-simple-analysis .
 ./o2-analysistutorial-simple-analysis --aod-file <aod_file_name> -b
