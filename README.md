@@ -9,10 +9,12 @@ You will need also the GRID access to data, follow [the instructions](https://al
 
 ## Prepare O2 Git repository
 
-Fork the [O2 repository](https://github.com/AliceO2Group/AliceO2) on GitHub. Then inside your `alice/O2/` directory:
+Fork the [O2 repository](https://github.com/AliceO2Group/AliceO2) on GitHub: go to the repository page and click on 'Fork' in the upper right corner.
+
+Then, inside your `alice/O2/` directory:
 ```bash
 git remote remove origin
-git remote add origin <your_repository_link>
+git remote add origin <your_forked_repository_link>
 git remote add upstream https://github.com/AliceO2Group/AliceO2.git # the main O2 repo
 git remote -vvv # verify the remotes are set correctly
 ```
