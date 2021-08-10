@@ -89,6 +89,8 @@ ninja install stage/bin/your-analysis-file
 You can also call `ninja` without install but then you need to copy built files manually.<br>
 Calling `ninja` or `ninja install` without arguments will build any changed files and their dependants.
 
+**NOTE:** If you add a new source file to O2, you need to add it to your Git repository, otherwise aliBuild will not see any new changes made to this file and it won't recompile.
+
 **NOTE:** Sometimes, if you, e.g., add some `std::cout` lines, they might not be correctly linked with such quick build. In this case you need to run full aliBuild :-(
 
 **NOTE:** In case you've updated the binaries with `ninja` (but not `ninja install`), you need to copy the new binary to your current dir and call `./o2-analysis*`:
