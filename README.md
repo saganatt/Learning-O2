@@ -83,6 +83,8 @@ o2-analysistutorial-simple-analysis --aod-file <aod_file_name> -b
 
 It is recommended to install direnv (`sudo apt-get install direnv` on Ubuntu). This package manages environment variables like `PATH` and `LD_LIBRARY_PATH`. After the installation, add: `eval "$(direnv hook bash)"` at the end of the `~/.bashrc` file, and reload your shell (for example, open new terminal window).
 
+## Ninja
+
 After you change some files, you might want to test them without building the whole O2. You can use ninja to build only the updated codes and their dependants.
 
 ```bash
