@@ -79,14 +79,19 @@ o2-analysistutorial-simple-analysis --aod-file <aod_file_name> -b
 
 # Quick O2 build (once O2 was fully installed with aliBuild)
 
+## Direnv
+
+It is recommended to install direnv (`sudo apt-get install direnv` on Ubuntu). This package manages environment variables like `PATH` and `LD_LIBRARY_PATH`. After the installation, add: `eval "$(direnv hook bash)"` at the end of the `~/.bashrc` file, and reload your shell (for example, open new terminal window).
+
 After you change some files, you might want to test them without building the whole O2. You can use ninja to build only the updated codes and their dependants.
 
 ```bash
 cd alice/sw/BUILD/O2-latest/O2
-cmake . # Optional step, needed only after you add a new file and/or modify any CMakeLists.txt
+direnv allow
+alienv enter ninja/latest
 ninja install stage/bin/your-analysis-file
 ```
-You can also call `ninja` without install but then you need to copy built files manually.<br>
+You can also call `ninja` without install, to make it even faster, but then you need to copy built files manually.<br>
 Calling `ninja` or `ninja install` without arguments will build any changed files and their dependants.
 
 **NOTE:** If you add a new source file to O2, you need to add it to your Git repository, otherwise aliBuild will not see any new changes made to this file and it won't recompile.
