@@ -1,7 +1,7 @@
 # O2 build and additional steps
 
 Build O2 with aliBuild as explained [here](https://alice-doc.github.io/alice-analysis-tutorial/building/).<br>
-**NOTE:** Most of us use Ubuntu 18.04 / 20.04, some also CentOS 7, so better pick one of these systems.<br>
+**NOTE:** Most of us use Ubuntu 18.04 / 20.04, so better pick Ubuntu.<br>
 **NOTE:** The instructions can quickly get outdated - aliDoctor might show you more packages than suggested by the instructions. However, you should never see Python - in that case install additional libraries with `sudo apt-get install python3-dev` (Ubuntu) or `sudo yum install python3-devel` (CentOS).
 
 You will need also the GRID access to data, follow [the instructions](https://alice-doc.github.io/alice-analysis-tutorial/start/cert.html) to get the certificate.<br>
@@ -42,7 +42,7 @@ git rebase dev
 [MC correspondence on AliMonitor](https://alimonitor.cern.ch/job_details.jsp)  
 [O2 conversion trains](https://alimonitor.cern.ch/trains/train.jsp?train_id=132)
 
-I see the following pairs:
+I see the following pairs (outdated):
 
 |system| train number | run name | MC train number | MC run name |
 |-----:|-------------:|---------:|----------------:|------------:|
@@ -88,17 +88,14 @@ It is recommended to install direnv (`sudo apt-get install direnv` on Ubuntu). T
 After you change some files, you might want to test them without building the whole O2. You can use ninja to build only the updated codes and their dependants.
 
 ```bash
-cd alice/sw/BUILD/O2-latest/O2
+cd alice/sw/BUILD/O2Physics-latest/O2Physics
 direnv allow
-alienv enter ninja/latest
+alienv load ninja/latest O2Physics/latest
 ninja install stage/bin/your-analysis-file
 ```
-You can also call `ninja` without install, to make it even faster, but then you need to copy built files manually.<br>
-Calling `ninja` or `ninja install` without arguments will build any changed files and their dependants.
+Calling `ninja` or `ninja install` without arguments will build all changed files and their dependants.
 
-**NOTE:** If you add a new source file to O2, you need to add it to your Git repository, otherwise aliBuild will not see any new changes made to this file and it won't recompile.
-
-**NOTE:** Sometimes, if you, e.g., add some `std::cout` lines, they might not be correctly linked with such quick build. In this case you need to run full aliBuild :-(
+**NOTE:** If you add a new source file to O2Physics, you need to add it to your Git repository, otherwise aliBuild will not see any new changes made to this file and it won't recompile.
 
 **NOTE:** In case you've updated the binaries with `ninja` (but not `ninja install`), you need to copy the new binary to your current dir and call `./o2-analysis*`:
 ```bash
